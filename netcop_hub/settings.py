@@ -40,7 +40,7 @@ if missing_vars:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,testserver,netcop.up.railway.app,quantumtaskai.com,www.quantumtaskai.com,mr9d7q2k.up.railway.app).split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,testserver,netcop.up.railway.app,quantumtaskai.com,www.quantumtaskai.com,mr9d7q2k.up.railway.app').split(',')
 
 # Site URL configuration for emails
 if config('RAILWAY_ENVIRONMENT', default=''):
