@@ -44,7 +44,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,testserver,
 
 # Site URL configuration for emails
 if config('RAILWAY_ENVIRONMENT', default=''):
-    SITE_URL = 'https://netcop.up.railway.app'
+    SITE_URL = 'https://quantumtaskai.com'
 else:
     SITE_URL = config('SITE_URL', default='http://localhost:8000')
 
@@ -280,7 +280,10 @@ if config('RAILWAY_ENVIRONMENT', default=''):
     railway_url = config('RAILWAY_PUBLIC_DOMAIN', default='')
     if railway_url:
         CSRF_TRUSTED_ORIGINS.append(f'https://{railway_url}')
-    # Also add common Railway domain pattern
+    # Add production domains (both www and non-www)
+    CSRF_TRUSTED_ORIGINS.append('https://quantumtaskai.com')
+    CSRF_TRUSTED_ORIGINS.append('https://www.quantumtaskai.com')
+    # Also add common Railway domain pattern for backward compatibility
     CSRF_TRUSTED_ORIGINS.append('https://netcop.up.railway.app')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

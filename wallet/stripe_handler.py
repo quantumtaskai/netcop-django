@@ -27,9 +27,10 @@ class StripePaymentHandler:
             success_url = request.build_absolute_uri('/wallet/top-up/success/') + '?session_id={CHECKOUT_SESSION_ID}'
             cancel_url = request.build_absolute_uri('/wallet/top-up/cancel/')
         else:
-            # Fallback URLs
-            success_url = 'https://netcop.up.railway.app/wallet/top-up/success/?session_id={CHECKOUT_SESSION_ID}'
-            cancel_url = 'https://netcop.up.railway.app/wallet/top-up/cancel/'
+            # Fallback URLs - use configured site URL
+            base_url = getattr(settings, 'SITE_URL', 'https://quantumtaskai.com')
+            success_url = f'{base_url}/wallet/top-up/success/?session_id={{CHECKOUT_SESSION_ID}}'
+            cancel_url = f'{base_url}/wallet/top-up/cancel/'
         
         try:
             print(f"🚀 [STRIPE DEBUG] Starting checkout session creation...")
@@ -39,7 +40,7 @@ class StripePaymentHandler:
             print(f"🔑 API Version: {stripe.api_version}")
             print(f"📍 Success URL: {success_url}")
             print(f"📍 Cancel URL: {cancel_url}")
-            print(f"📍 Expected Webhook URL: https://netcop.up.railway.app/stripe/webhook/")
+            print(f"📍 Expected Webhook URL: {getattr(settings, 'SITE_URL', 'https://quantumtaskai.com')}/stripe/webhook/")
             print(f"🌍 Environment: {'production' if 'railway.app' in (request.get_host() if request else '') else 'development'}")
             
             # Create session with modern Stripe practices
